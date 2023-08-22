@@ -16,7 +16,7 @@ class Albums(models.Model):
         db_column="Title"
     )  # Field name made lowercase. This field type is a guess.
     artistid = models.ForeignKey(
-        "Artists", models.DO_NOTHING, db_column="ArtistId"
+        "Artists", models.CASCADE, db_column="ArtistId"
     )  # Field name made lowercase.
 
     class Meta:
@@ -153,10 +153,10 @@ class InvoiceItems(models.Model):
         db_column="InvoiceLineId", primary_key=True
     )  # Field name made lowercase.
     invoiceid = models.ForeignKey(
-        "Invoices", models.DO_NOTHING, db_column="InvoiceId"
+        "Invoices", models.CASCADE, db_column="InvoiceId"
     )  # Field name made lowercase.
     trackid = models.ForeignKey(
-        "Tracks", models.DO_NOTHING, db_column="TrackId"
+        "Tracks", models.CASCADE, db_column="TrackId"
     )  # Field name made lowercase.
     unitprice = models.TextField(
         db_column="UnitPrice"
@@ -173,7 +173,7 @@ class Invoices(models.Model):
         db_column="InvoiceId", primary_key=True
     )  # Field name made lowercase.
     customerid = models.ForeignKey(
-        Customers, models.DO_NOTHING, db_column="CustomerId"
+        Customers, models.CASCADE, db_column="CustomerId"
     )  # Field name made lowercase.
     invoicedate = models.DateTimeField(
         db_column="InvoiceDate"
@@ -217,10 +217,10 @@ class MediaTypes(models.Model):
 
 class PlaylistTrack(models.Model):
     playlistid = models.OneToOneField(
-        "Playlists", models.DO_NOTHING, db_column="PlaylistId", primary_key=True
+        "Playlists", models.CASCADE, db_column="PlaylistId", primary_key=True
     )  # Field name made lowercase. The composite primary key (PlaylistId, TrackId) found, that is not supported. The first column is selected.
     trackid = models.ForeignKey(
-        "Tracks", models.DO_NOTHING, db_column="TrackId"
+        "Tracks", models.CASCADE, db_column="TrackId"
     )  # Field name made lowercase.
 
     class Meta:
@@ -259,7 +259,7 @@ class Tracks(models.Model):
         db_column="Name"
     )  # Field name made lowercase. This field type is a guess.
     albumid = models.ForeignKey(
-        Albums, models.DO_NOTHING, db_column="AlbumId", blank=True, null=True
+        Albums, models.CASCADE, db_column="AlbumId", blank=True, null=True
     )  # Field name made lowercase.
     mediatypeid = models.ForeignKey(
         MediaTypes, models.DO_NOTHING, db_column="MediaTypeId"
