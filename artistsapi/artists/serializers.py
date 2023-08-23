@@ -21,3 +21,11 @@ class AlbumSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Album
         fields = ["id", "name", "tracks"]
+
+
+class DetailedAlbumSerializer(serializers.HyperlinkedModelSerializer):
+    artist = serializers.StringRelatedField()
+
+    class Meta:
+        model = Album
+        fields = ["id", "name", "artist"]

@@ -3,7 +3,7 @@ from rest_framework import generics
 from rest_framework import permissions
 from rest_framework.response import Response
 
-from .serializers import ArtistSerializer, AlbumSerializer
+from .serializers import ArtistSerializer, AlbumSerializer, DetailedAlbumSerializer
 from .models import Artist, Album
 
 
@@ -32,6 +32,17 @@ class AlbumList(mixins.ListModelMixin, generics.GenericAPIView):
     queryset = Album.objects.prefetch_related("tracks")
     serializer_class = AlbumSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+
+class DetailedAlbumList(mixins.ListModelMixin, generics.GenericAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = DetailedAlbumSerializer
+
+    def get_queryset(self):
+        return Album.objects.prefetch_related("artist").all()
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)

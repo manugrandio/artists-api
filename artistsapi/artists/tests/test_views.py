@@ -66,3 +66,32 @@ class TestAlbumList(TestCase):
             [track.name for track in album.tracks.all()] for album in self.albums
         ]
         self.assertEqual(sorted(fetched_albums_tracks), sorted(existing_albums_tracks))
+
+
+class TestDetailedAlbumList(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.artists = [ArtistFactory(), ArtistFactory()]
+        cls.albums = [
+            AlbumFactory(artist=cls.artists[0]),
+            AlbumFactory(artist=cls.artists[1]),
+        ]
+        tracks = [
+            TrackFactory(album=cls.albums[0]),
+            TrackFactory(album=cls.albums[1]),
+            TrackFactory(album=cls.albums[1]),
+        ]
+        User.objects.create_user("john", "john@mail.com", "password")
+
+    def test_album_list_without_auth(self):
+        response = self.client.get("/albums-details/")
+
+        self.assertEqual(response.status_code, 403)
+
+    def test_get_detailed_album_list(self):
+        self.client.login(username="john", password="password")
+        response = self.client.get("/albums-details/")
+
+        fetched_artists_names = [album["artist"] for album in response.json()]
+        existing_artists_names = [artist.name for artist in self.artists]
+        self.assertEqual(sorted(fetched_artists_names), sorted(existing_artists_names))
