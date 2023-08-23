@@ -18,6 +18,27 @@ class TestArtistList(TestCase):
         self.assertEqual(sorted(fetched_artists_names), sorted(existing_artists_names))
 
 
+class TestArtistAlbumList(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.artist = ArtistFactory()
+        cls.albums = [AlbumFactory(artist=cls.artist) for _ in range(3)]
+        User.objects.create_user("john", "john@mail.com", "password")
+
+    def test_album_list_without_auth(self):
+        response = self.client.get(f"/artists/{self.artist.pk}/albums/")
+
+        self.assertEqual(response.status_code, 403)
+
+    def test_artist_album_list(self):
+        self.client.login(username="john", password="password")
+        response = self.client.get(f"/artists/{self.artist.pk}/albums/")
+
+        existing_album_names = [album.name for album in self.albums]
+        fetched_album_names = [album["name"] for album in response.json()]
+        self.assertEqual(sorted(existing_album_names), sorted(fetched_album_names))
+
+
 class TestAlbumList(TestCase):
     @classmethod
     def setUpTestData(cls):
