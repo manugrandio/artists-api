@@ -17,16 +17,12 @@ class ArtistList(mixins.ListModelMixin, generics.GenericAPIView):
 
 class ArtistAlbumList(mixins.ListModelMixin, generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
+    serializer_class = AlbumSerializer
 
     def get_queryset(self):
         request = self.request
         pk = self.kwargs["pk"]
         return Artist.objects.get(pk=pk).albums
-
-    def list(self, request, pk):
-        queryset = self.get_queryset()
-        serializer = AlbumSerializer(queryset, many=True)
-        return Response(serializer.data)
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
