@@ -4,4 +4,5 @@ from artistsapi.artists import views
 
 urlpatterns = [
     path("artists/", views.ArtistList.as_view()),
+    path("albums/", views.AlbumList.as_view()),
 ]

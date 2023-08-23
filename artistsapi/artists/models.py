@@ -6,11 +6,11 @@ class Artist(models.Model):
 
 
 class Album(models.Model):
-    title = models.CharField(max_length=256)
-    artist = models.ForeignKey(Artist, models.CASCADE)
+    name = models.CharField(max_length=256)
+    artist = models.ForeignKey(Artist, models.CASCADE, related_name="albums")
 
 
 class Track(models.Model):
     name = models.CharField(max_length=256)
-    album = models.ForeignKey(Album, models.CASCADE)
+    album = models.ForeignKey(Album, models.CASCADE, related_name="tracks")
     milliseconds = models.IntegerField()
