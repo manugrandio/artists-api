@@ -1,9 +1,9 @@
 from rest_framework import serializers
 
-from .models.artists import Artists
+from .models import Artist
 
 
-class ArtistsSerializer(serializers.HyperlinkedModelSerializer):
+class ArtistSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = Artists
-        fields = ["artistid", "name"]
+        model = Artist
+        fields = ["id", "name"]

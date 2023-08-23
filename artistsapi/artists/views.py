@@ -2,13 +2,13 @@ from rest_framework import mixins
 from rest_framework import generics
 from rest_framework import permissions
 
-from .serializers import ArtistsSerializer
-from .models.artists import Artists
+from .serializers import ArtistSerializer
+from .models import Artist
 
 
 class ArtistList(mixins.ListModelMixin, generics.GenericAPIView):
-    queryset = Artists.objects.all()
-    serializer_class = ArtistsSerializer
+    queryset = Artist.objects.all()
+    serializer_class = ArtistSerializer
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
