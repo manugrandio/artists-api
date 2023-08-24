@@ -16,6 +16,15 @@ class TestBasicPassphrase(TestCase):
 
         self.assertEqual(response.json()["count"], 2)
 
+    def test_basic_passphrase_invalid(self):
+        self.client.login(username="john", password="password")
+
+        passphrases = ""
+
+        response = self.client.post("/passphrase/basic/", {"passphrases": passphrases})
+
+        self.assertEqual(response.status_code, 400)
+
 
 class TestAdvancedPassphrase(TestCase):
     @classmethod
@@ -37,3 +46,12 @@ class TestAdvancedPassphrase(TestCase):
         )
 
         self.assertEqual(response.json()["count"], 3)
+
+    def test_advanced_passphrase_invalid(self):
+        self.client.login(username="john", password="password")
+
+        passphrases = ""
+
+        response = self.client.post("/passphrase/basic/", {"passphrases": passphrases})
+
+        self.assertEqual(response.status_code, 400)
