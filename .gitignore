@@ -161,3 +161,6 @@ cython_debug/
 
 # Personal files
 TODO.md
+
+# OS stuff
+.DS_Store
