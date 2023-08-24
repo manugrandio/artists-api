@@ -20,9 +20,8 @@ class ArtistAlbumList(mixins.ListModelMixin, generics.GenericAPIView):
     serializer_class = AlbumSerializer
 
     def get_queryset(self):
-        request = self.request
-        pk = self.kwargs["pk"]
-        return Artist.objects.get(pk=pk).albums
+        artist_pk = self.kwargs["pk"]
+        return Artist.objects.get_artist_albums(artist_pk)
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)

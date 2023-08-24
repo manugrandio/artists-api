@@ -1,8 +1,15 @@
 from django.db import models
 
 
+class ArtistManager(models.Manager):
+    def get_artist_albums(self, artist_pk):
+        return self.get(pk=artist_pk).albums
+
+
 class Artist(models.Model):
     name = models.CharField(max_length=256)
+
+    objects = ArtistManager()
 
     def __str__(self):
         return self.name
