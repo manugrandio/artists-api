@@ -1,8 +1,10 @@
+from django.db import models
+
 from rest_framework import reverse
 from rest_framework import serializers
 from rest_framework.fields import IntegerField
 
-from .models import Artist, Album, Track
+from .models import Artist, ArtistImage, Album, Track
 
 
 class ArtistImageField(serializers.Field):
@@ -10,8 +12,11 @@ class ArtistImageField(serializers.Field):
         return instance
 
     def to_representation(self, instance):
-        if instance.image:
-            return instance.image.file.url
+        try:
+            if instance.image:
+                return instance.image.file.url
+        except ArtistImage.DoesNotExist:
+            pass
 
         return None
 
@@ -43,8 +48,11 @@ class ArtistImageDetailedAlbumField(serializers.Field):
         return instance
 
     def to_representation(self, instance):
-        if instance.artist.image:
-            return instance.artist.image.file.url
+        try:
+            if instance.artist.image:
+                return instance.artist.image.file.url
+        except ArtistImage.DoesNotExist:
+            pass
 
         return None
 

@@ -23,7 +23,7 @@ class ArtistImage(models.Model):
 class AlbumManager(models.Manager):
     def get_detailed_albums(self):
         return (
-            self.prefetch_related("artist", "tracks")
+            self.prefetch_related("artist", "artist__image", "tracks")
             .annotate(
                 track_count=models.Count("tracks"),
                 total_duration=models.Sum("tracks__milliseconds"),

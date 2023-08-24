@@ -8,7 +8,7 @@ from .models import Artist, Album
 
 
 class ArtistList(mixins.ListModelMixin, generics.GenericAPIView):
-    queryset = Artist.objects.all()
+    queryset = Artist.objects.prefetch_related("image").all()
     serializer_class = ArtistSerializer
 
     def get(self, request, *args, **kwargs):
