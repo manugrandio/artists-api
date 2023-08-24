@@ -164,3 +164,6 @@ TODO.md
 
 # OS stuff
 .DS_Store
+
+# Project media
+artistsapi/media/

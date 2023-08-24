@@ -26,15 +26,16 @@ class Scrapper:
         search_response.raise_for_status()
         image_url = SearchPage(search_response.content).get_image_url()
 
-        image_path = settings.MEDIA_ROOT / artist_name
         with requests.get(image_url, stream=True) as image_response:
             image_response.raise_for_status()
+            image_path = settings.MEDIA_ROOT / artist_name
             image_extension = urlsplit(image_url).path.split(".")[-1]
-            with open(f"{image_path}.{image_extension}", "wb") as f:
+            file_name = f"{image_path}.{image_extension}"
+            with open(file_name, "wb") as f:
                 for chunk in image_response.iter_content(chunk_size=8192):
                     f.write(chunk)
 
-        return image_path
+        return file_name
 
 
 class PageParsingError(Exception):
