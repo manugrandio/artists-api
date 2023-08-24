@@ -15,6 +15,11 @@ class Artist(models.Model):
         return self.name
 
 
+class ArtistImage(models.Model):
+    artist = models.OneToOneField(Artist, models.CASCADE, related_name="image")
+    file = models.FileField()
+
+
 class AlbumManager(models.Manager):
     def get_detailed_albums(self):
         return (
