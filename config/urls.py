@@ -10,4 +10,5 @@ urlpatterns = [
     path("albums/", views.AlbumList.as_view()),
     path("albums-details/", views.DetailedAlbumList.as_view()),
     path("passphrase/basic/", passphrase_views.BasicPassphrase.as_view()),
+    path("passphrase/advanced/", passphrase_views.AdvancedPassphrase.as_view()),
 ]

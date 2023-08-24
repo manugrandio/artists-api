@@ -12,3 +12,13 @@ class BasicPassphrase(APIView):
     def post(self, request):
         count = count_valid_passphrases(self.request.data["passphrases"])
         return Response({"count": count})
+
+
+class AdvancedPassphrase(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        count = count_valid_passphrases(
+            self.request.data["passphrases"], use_advanced=True
+        )
+        return Response({"count": count})
