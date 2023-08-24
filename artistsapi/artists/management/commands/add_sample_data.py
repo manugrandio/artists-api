@@ -39,4 +39,4 @@ class Command(BaseCommand):
             for _ in range(12):
                 factories.TrackFactory(album=album)
 
-        self.stdout.write(self.style.SUCCESS("This nice command is running"))
+        self.stdout.write(self.style.SUCCESS("Sample data created successfully"))
