@@ -42,7 +42,7 @@ class DetailedAlbumList(mixins.ListModelMixin, generics.GenericAPIView):
     serializer_class = DetailedAlbumSerializer
 
     def get_queryset(self):
-        return Album.objects.prefetch_related("artist").all()
+        return Album.objects.get_detailed_albums()
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
