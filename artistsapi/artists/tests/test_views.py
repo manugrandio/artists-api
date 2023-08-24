@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 
 from ..views import ArtistList
-from .factories import ArtistFactory, AlbumFactory, TrackFactory
+from ..utils.factories import ArtistFactory, AlbumFactory, TrackFactory
 
 
 class TestArtistList(TestCase):
