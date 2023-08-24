@@ -3,8 +3,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
-from .passphrase_serializers import PassphraseSerializer
-from .passphrase import count_valid_passphrases
+from .serializers import PassphraseSerializer
+from .passphrases import count_valid_passphrases
 
 
 class BasicPassphrase(APIView):

@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from ..passphrase import (
+from ..passphrases import (
     basic_passphrase_is_valid,
     advanced_passphrase_is_valid,
     count_valid_passphrases,
