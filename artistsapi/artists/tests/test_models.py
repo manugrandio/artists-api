@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 from ..models import Album
-from .factories import ArtistFactory, AlbumFactory, TrackFactory
+from ..utils.factories import ArtistFactory, AlbumFactory, TrackFactory
 
 
 class TestAlbum(TestCase):
