@@ -14,7 +14,9 @@ class TestArtistList(TestCase):
         response = self.client.get("/artists/")
 
         existing_artists_names = [artist.name for artist in self.artists]
-        fetched_artists_names = [artist["name"] for artist in response.json()]
+        fetched_artists_names = [
+            artist["name"] for artist in response.json()["results"]
+        ]
         self.assertEqual(sorted(fetched_artists_names), sorted(existing_artists_names))
 
 
@@ -36,7 +38,7 @@ class TestArtistAlbumList(TestCase):
         response = self.client.get(f"/artists/{self.artist.pk}/albums/")
 
         existing_album_names = [album.name for album in self.albums]
-        fetched_album_names = [album["name"] for album in response.json()]
+        fetched_album_names = [album["name"] for album in response.json()["results"]]
         self.assertEqual(sorted(existing_album_names), sorted(fetched_album_names))
 
 
@@ -62,7 +64,8 @@ class TestAlbumList(TestCase):
         response = self.client.get("/albums/")
 
         fetched_albums_tracks = [
-            [track["name"] for track in album["tracks"]] for album in response.json()
+            [track["name"] for track in album["tracks"]]
+            for album in response.json()["results"]
         ]
         existing_albums_tracks = [
             [track.name for track in album.tracks.all()] for album in self.albums
@@ -94,7 +97,9 @@ class TestDetailedAlbumList(TestCase):
 
         response = self.client.get("/albums-details/")
 
-        fetched_albums = sorted(response.json(), key=lambda album: album["id"])
+        fetched_albums = sorted(
+            response.json()["results"], key=lambda album: album["id"]
+        )
         self.assertEqual(
             [album["artist"] for album in fetched_albums], ["Tortoise", "Slint"]
         )

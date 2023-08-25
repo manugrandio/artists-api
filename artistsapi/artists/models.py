@@ -3,7 +3,7 @@ from django.db import models
 
 class ArtistManager(models.Manager):
     def get_artist_albums(self, artist_pk):
-        return self.get(pk=artist_pk).albums
+        return self.get(pk=artist_pk).albums.all()
 
 
 class Artist(models.Model):
