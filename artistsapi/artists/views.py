@@ -1,4 +1,5 @@
 from rest_framework import mixins
+from rest_framework import exceptions
 from rest_framework import generics
 from rest_framework import permissions
 from rest_framework.response import Response
@@ -21,7 +22,10 @@ class ArtistAlbumList(mixins.ListModelMixin, generics.GenericAPIView):
 
     def get_queryset(self):
         artist_pk = self.kwargs["pk"]
-        return Artist.objects.get_artist_albums(artist_pk)
+        try:
+            return Artist.objects.get_artist_albums(artist_pk)
+        except Artist.DoesNotExist:
+            raise exceptions.NotFound
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)

@@ -32,6 +32,13 @@ class TestArtistAlbumList(TestCase):
 
         self.assertEqual(response.status_code, 403)
 
+    def test_album_list_404(self):
+        self.client.login(username="john", password="password")
+
+        response = self.client.get(f"/artists/10000/albums/")
+
+        self.assertEqual(response.status_code, 404)
+
     def test_artist_album_list(self):
         self.client.login(username="john", password="password")
 
