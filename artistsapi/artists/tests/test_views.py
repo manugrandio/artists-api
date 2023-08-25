@@ -25,7 +25,7 @@ class TestArtistAlbumList(TestCase):
     def setUpTestData(cls):
         cls.artist = ArtistFactory()
         cls.albums = [AlbumFactory(artist=cls.artist) for _ in range(3)]
-        User.objects.create_user("john", "john@mail.com", "password")
+        User.objects.create_user("user", "user@mail.com", "password")
 
     def test_album_list_without_auth(self):
         response = self.client.get(f"/artists/{self.artist.pk}/albums/")
@@ -33,14 +33,14 @@ class TestArtistAlbumList(TestCase):
         self.assertEqual(response.status_code, 403)
 
     def test_album_list_404(self):
-        self.client.login(username="john", password="password")
+        self.client.login(username="user", password="password")
 
         response = self.client.get(f"/artists/10000/albums/")
 
         self.assertEqual(response.status_code, 404)
 
     def test_artist_album_list(self):
-        self.client.login(username="john", password="password")
+        self.client.login(username="user", password="password")
 
         response = self.client.get(f"/artists/{self.artist.pk}/albums/")
 
@@ -58,7 +58,7 @@ class TestAlbumList(TestCase):
             TrackFactory(album=cls.albums[1]),
             TrackFactory(album=cls.albums[1]),
         ]
-        User.objects.create_user("john", "john@mail.com", "password")
+        User.objects.create_user("user", "user@mail.com", "password")
 
     def test_album_list_without_auth(self):
         response = self.client.get("/albums/")
@@ -66,7 +66,7 @@ class TestAlbumList(TestCase):
         self.assertEqual(response.status_code, 403)
 
     def test_album_list(self):
-        self.client.login(username="john", password="password")
+        self.client.login(username="user", password="password")
 
         response = self.client.get("/albums/")
 
@@ -92,7 +92,7 @@ class TestDetailedAlbumList(TestCase):
             TrackFactory(album=cls.albums[0], milliseconds=10_000),
             TrackFactory(album=cls.albums[1], milliseconds=5_000),
         ]
-        User.objects.create_user("john", "john@mail.com", "password")
+        User.objects.create_user("user", "user@mail.com", "password")
 
     def test_album_list_without_auth(self):
         response = self.client.get("/albums-details/")
@@ -100,7 +100,7 @@ class TestDetailedAlbumList(TestCase):
         self.assertEqual(response.status_code, 403)
 
     def test_get_detailed_album_list(self):
-        self.client.login(username="john", password="password")
+        self.client.login(username="user", password="password")
 
         response = self.client.get("/albums-details/")
 
