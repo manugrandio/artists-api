@@ -92,7 +92,7 @@ I couldn't figure out how to do it with Django REST Framework the proper way (bu
 - I think the project has a pretty good test coverage overall.
 For simplicity, the two missing pieces that lack automated tests are the `get_artists_images` command and the `Scrapper`.
 In a production scenario I would write tests for those classes too.
-- I used `FileField` to store images instead `ImageField` because it didn't provide any functionality I needed for this exercise.
+- For simplicity, I used `FileField` to store images instead `ImageField` because it didn't provide any functionality I needed for this exercise.
 In a production scenario, I would use `ImageField`, though.
 - Passphrase logic is in `utils`.
 I didn't create an app because I didn't need models, just the views.
