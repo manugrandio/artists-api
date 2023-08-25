@@ -88,7 +88,7 @@ curl -X POST localhost:8000/passphrase/advanced/ -H "Content-Type: application/j
 - For simplicity, it uses the development server and SQLite.
 In a production environment I would use a real server such as Nginx and a more powerful database such as PostgreSQL.
 - It stores and serves media files in a way that is only suitable for development.
-I couldn't figure out how to do it with Django REST Framework the proper way (but I think I could fix it if I had a couple more hours).
+I couldn't figure out how to do it with Django REST Framework the proper way (but I think I could fix it if I had some more time).
 - I think the project has a pretty good test coverage overall.
 For simplicity, the two missing pieces that lack automated tests are the `get_artists_images` command and the `Scrapper`.
 In a production scenario I would write tests for those classes too.
